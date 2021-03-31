@@ -9,6 +9,10 @@ import android.widget.Toast;
 public class LoginActivity extends AppCompatActivity {
 
     Button Login_Butt;
+    Button Register_Butt;
+    Button Forgot_Butt;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
