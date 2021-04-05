@@ -65,6 +65,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    //Handle the page swapping updating button states at the bottom of the main activity
     private ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
