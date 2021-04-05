@@ -8,17 +8,19 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
+    private ViewPager viewPager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
-        ViewPager viewPager = findViewById(R.id.viewPager);
+        viewPager = findViewById(R.id.viewPager);
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
@@ -57,5 +59,20 @@ public class MainActivity extends AppCompatActivity {
         public int getCount() {
             return NUM_PAGES;
         }
+    }
+    public void profileButton(View view) {
+        viewPager.setCurrentItem(0);
+    }
+    public void mapButton(View view) {
+        viewPager.setCurrentItem(1);
+    }
+    public void cameraButton(View view) {
+        viewPager.setCurrentItem(2);
+    }
+    public void encyclopediaButton(View view) {
+        viewPager.setCurrentItem(3);
+    }
+    public void settingsButton(View view) {
+        viewPager.setCurrentItem(4);
     }
 }
