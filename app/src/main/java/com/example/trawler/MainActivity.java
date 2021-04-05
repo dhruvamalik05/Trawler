@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         // Set the default page to 2, which is our camera fragment. Fragments are 0 = Profile,
         // 1 = Map, 2 = Camera, 3 = Encyclopedia, 4 = Settings
         viewPager.setCurrentItem(2);
+
+        viewPager.setOnPageChangeListener(listener);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
@@ -60,19 +63,88 @@ public class MainActivity extends AppCompatActivity {
             return NUM_PAGES;
         }
     }
+
+    private ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            //resetButtons();
+
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            resetButtons();
+            ImageButton btn;
+            switch(position) {
+                case 0:
+                    btn = (ImageButton) findViewById(R.id.imageButton0);
+                    btn.setImageResource(R.drawable.profile_selected);
+                    viewPager.setCurrentItem(0);
+                    return;
+                case 1:
+                    btn = (ImageButton) findViewById(R.id.imageButton1);
+                    btn.setImageResource(R.drawable.map_selected);
+                    viewPager.setCurrentItem(1);
+                    return;
+                case 2:
+                    btn = (ImageButton) findViewById(R.id.imageButton2);
+                    btn.setImageResource(R.drawable.camera_selected);
+                    viewPager.setCurrentItem(2);
+                    return;
+                case 3:
+                    btn = (ImageButton) findViewById(R.id.imageButton3);
+                    btn.setImageResource(R.drawable.encyclopedia_selected);
+                    viewPager.setCurrentItem(3);
+                    return;
+                case 4:
+                    btn = (ImageButton) findViewById(R.id.imageButton4);
+                    btn.setImageResource(R.drawable.settings_selected);
+                    viewPager.setCurrentItem(4);
+                    return;
+            }
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+            //resetButtons();
+        }
+    };
+
+    public void resetButtons() { //reset all buttons to the non-pressed state
+        ImageButton btn;
+
+        btn = (ImageButton)findViewById(R.id.imageButton0);
+        btn.setImageResource(R.drawable.profile_unselected);
+
+        btn = (ImageButton)findViewById(R.id.imageButton1);
+        btn.setImageResource(R.drawable.map_unselected);
+
+        btn = (ImageButton)findViewById(R.id.imageButton2);
+        btn.setImageResource(R.drawable.camera_unselected);
+
+        btn = (ImageButton)findViewById(R.id.imageButton3);
+        btn.setImageResource(R.drawable.encyclopedia_unselected);
+
+        btn = (ImageButton)findViewById(R.id.imageButton4);
+        btn.setImageResource(R.drawable.settings_unselected);
+    }
+
+    //Each of the below will set the button of the selected fragment to be selected and all others
+    //cleared
+
     public void profileButton(View view) {
-        viewPager.setCurrentItem(0);
+        listener.onPageSelected(0);
     }
     public void mapButton(View view) {
-        viewPager.setCurrentItem(1);
+        listener.onPageSelected(1);
     }
     public void cameraButton(View view) {
-        viewPager.setCurrentItem(2);
+        listener.onPageSelected(2);
     }
     public void encyclopediaButton(View view) {
-        viewPager.setCurrentItem(3);
+        listener.onPageSelected(3);
     }
     public void settingsButton(View view) {
-        viewPager.setCurrentItem(4);
+        listener.onPageSelected(4);
     }
 }
