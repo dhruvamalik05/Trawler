@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         // Set the default page to 2, which is our camera fragment. Fragments are 0 = Profile,
         // 1 = Map, 2 = Camera, 3 = Encyclopedia, 4 = Settings
         viewPager.setCurrentItem(2);
+        listener.onPageSelected(2);
 
         viewPager.setOnPageChangeListener(listener);
     }
