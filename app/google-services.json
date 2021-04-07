@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "736544400701",
+    "project_id": "trawlr-c4b0e",
+    "storage_bucket": "trawlr-c4b0e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:736544400701:android:550150e2125aa67af89154",
+        "android_client_info": {
+          "package_name": "com.example.trawler"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "736544400701-jcc5lh5nojuecs6i825bvr38qtf2mj20.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxrnoZyxw8D8BW-cEMeiaNk2VxC2mm-lY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "736544400701-jcc5lh5nojuecs6i825bvr38qtf2mj20.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
