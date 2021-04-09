@@ -40,8 +40,7 @@ public class LoginActivity extends AppCompatActivity {
             users.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Integer uId = snapshot.child("uNames").child(uBox.getText().toString()).getValue(Integer.class);
-                    boolean isLoggedIn = snapshot.child("Pass").child(uId.toString()).getValue(String.class).equals(pBox.getText().toString());
+                    boolean isLoggedIn = snapshot.child(uBox.getText().toString()).getValue(User.class).getPass().equals(pBox.getText().toString());
                     if(isLoggedIn){
                         startActivity(i);
                     }
