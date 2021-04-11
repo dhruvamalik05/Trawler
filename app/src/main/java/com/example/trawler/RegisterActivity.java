@@ -21,6 +21,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RegisterActivity extends AppCompatActivity {
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -66,10 +69,8 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User temp = snapshot.child(((EditText)findViewById(R.id.UserNameReg)).getText().toString()).getValue(User.class);
                         if(temp == null){
-                            User newUse = new User(uName, passName, fName, lName, email);
-                            users.child(uName).setValue(newUse);
-                            Toast.makeText(getApplicationContext(),  "User Added", Toast.LENGTH_SHORT).show();
-                            finish();
+                            User newUser = new User(uName, passName, fName, lName, email);
+                            newUse(newUser);
                         }
                         else{
                             Toast.makeText(getApplicationContext(),  "User already exists", Toast.LENGTH_SHORT).show();
@@ -83,5 +84,11 @@ public class RegisterActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    protected void newUse(User u){
+        users.child(u.getuName()).setValue(u);
+        Toast.makeText(getApplicationContext(),  "User Added", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

@@ -14,7 +14,7 @@ public class User {
         pass = "";
         fName = "";
         lName = "";
-        email = null;
+        email = "";
     }
 
     public User(String uName, String pass, String fName, String lName, String email) {
