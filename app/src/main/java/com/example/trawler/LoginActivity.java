@@ -26,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference datRef = database.getReference();
     DatabaseReference users = datRef.child("users");
     Intent i;
+    Intent Reg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +36,17 @@ public class LoginActivity extends AppCompatActivity {
         pBox = findViewById(R.id.Password_Box);
         Login_Butt = findViewById(R.id.Login_Butt);
         i = new Intent(this, MainActivity.class);
+        Reg = new Intent(this, RegisterActivity.class);
         Login_Butt.setOnClickListener((v) ->{
-            Toast.makeText(getApplicationContext(),  uBox.getText(), Toast.LENGTH_SHORT).show();
             users.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    Integer uId = snapshot.child("uNames").child(uBox.getText().toString()).getValue(Integer.class);
-                    boolean isLoggedIn = snapshot.child("Pass").child(uId.toString()).getValue(String.class).equals(pBox.getText().toString());
+                    User temp = snapshot.child(uBox.getText().toString()).getValue(User.class);
+                    if(temp == null){
+                        Toast.makeText(getApplicationContext(),  "Not valid user", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    boolean isLoggedIn = temp.getPass().equals(pBox.getText().toString());
                     if(isLoggedIn){
                         startActivity(i);
                     }
@@ -52,6 +57,10 @@ public class LoginActivity extends AppCompatActivity {
 
                 }
             });
+        });
+        Register_Butt = findViewById(R.id.Regiser_Butt);
+        Register_Butt.setOnClickListener((v)->{
+            startActivity(Reg);
         });
     }
 
