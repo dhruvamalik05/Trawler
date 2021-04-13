@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/teal_700">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFish"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Encyclopedia Fragment"
-        android:gravity="center"
-        android:textColor="@android:color/white"
-        android:textSize="30sp"/>
+        android:layout_margin="7dp"/>
 
-</LinearLayout>
+</RelativeLayout>
