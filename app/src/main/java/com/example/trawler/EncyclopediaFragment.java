@@ -26,7 +26,7 @@ public class EncyclopediaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_encyclopedia , container, false);
         RecyclerView rvFish=view.findViewById(R.id.rvFish);
-        context=container.getContext();
+        context=getActivity();
 
         Fish fish1= new Fish();
         fish1.setName("Fish1");
