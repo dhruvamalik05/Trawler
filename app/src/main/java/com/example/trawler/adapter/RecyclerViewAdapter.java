@@ -12,11 +12,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.trawler.Fish;
 import com.example.trawler.FishDetails;
+import com.example.trawler.GlideApp;
 import com.example.trawler.R;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
@@ -42,10 +46,22 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Fish fish = encyclopedia.get(position);
 
         holder.name.setText(fish.getName());
-        holder.size.setText("Size: " + Double.toString(fish.getSize()) + " ft");
-        holder.weight.setText("Weight: "+ Double.toString(fish.getWeight()) + " lbs");
-        holder.iconButton.setImageResource(R.drawable.ic_launcher_foreground);
+        if(fish.getSize1()!="NaN"){
+            holder.size.setText("Size: " + Double.parseDouble(fish.getSize1()) + " cm");
+        }
+        else {
+            holder.size.setText("Size: " + "??" + " cm");
+        }
 
+        if(fish.getWeight1()!="NaN"){
+            holder.weight.setText("Weight: " + Double.parseDouble(fish.getWeight1())/1000 + " kg");
+        }
+        else {
+            holder.weight.setText("Weight: " + "??" + " kg");
+        }
+        GlideApp.with(context).load(fish.getPictureURL()).override(120, 120).error(R.drawable.ic_launcher_foreground).dontAnimate().into(holder.iconButton);
+        //Picasso.get().load(fish.getPictureURL()).into(holder.iconButton);
+        Log.i("Recycler", fish.getPictureURL());
     }
 
     // How many items?
@@ -78,9 +94,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int pos=this.getAdapterPosition();
             Fish fish=encyclopedia.get(pos);
             String name = fish.getName();
+            String url = fish.getPictureURL();
+            String size = fish.getSize1();
+            String weight = fish.getWeight1();
+            String description = fish.getBiology();
             // Toast.makeText(context, "Item clicked", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, FishDetails.class);
             intent.putExtra("FishName", name);
+            intent.putExtra("URL", url);
+            intent.putExtra("Size", size);
+            intent.putExtra("Weight", weight);
+            intent.putExtra("Description", description);
             context.startActivity(intent);
         }
     }
