@@ -2,6 +2,7 @@ package com.example.trawler;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,18 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codepath.asynchttpclient.AsyncHttpClient;
+import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.trawler.adapter.RecyclerViewAdapter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
+
+import okhttp3.Headers;
 
 public class EncyclopediaFragment extends Fragment {
     public static EncyclopediaFragment newInstance() {
@@ -20,14 +30,57 @@ public class EncyclopediaFragment extends Fragment {
         return fragment;
     }
 
-    ArrayList<Fish> encyclopedia;
+    ArrayList<Fish> encyclopedia=new ArrayList<>();
+    //ArrayList<Fish> encyclopedia2=new ArrayList<>();
     Context context;
+    public static final String URL="https://fishbase.ropensci.org/species?limit=100";
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_encyclopedia , container, false);
         RecyclerView rvFish=view.findViewById(R.id.rvFish);
         context=getActivity();
 
+        RecyclerViewAdapter recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
+        rvFish.setAdapter(recyclerViewAdapter);
+        rvFish.setLayoutManager(new LinearLayoutManager(context));
+
+        AsyncHttpClient client = new AsyncHttpClient();
+        client.get(URL, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int i, Headers headers, JSON json) {
+                Log.i("Encyclopedia", "onSuccess");
+
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    JSONArray results = jsonObject.getJSONArray("data");
+                    Log.i("Encyclopedia", "here");
+                    /*
+                    for(int j=0 ; i<results.length() ; j++) {
+                        Fish fish1 = new Fish(results.getJSONObject(j));
+                        encyclopedia.add(fish1);
+                    }
+
+                     */
+
+                    encyclopedia.addAll(Fish.fromJsonArray(results));
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    Log.i("Encyclopedia", encyclopedia.toString());
+                } catch (JSONException e) {
+                    Log.e("Encyclopedia", "Hit JSON exception");
+                    e.printStackTrace();
+                }
+
+
+            }
+
+            @Override
+            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                Log.e("Encyclopedia", "onFailure");
+            }
+        });
+
+/*
         Fish fish1= new Fish();
         fish1.setName("Fish1");
         fish1.setSize(8.4);
@@ -78,6 +131,7 @@ public class EncyclopediaFragment extends Fragment {
         fish10.setSize(8.4);
         fish10.setWeight(124.6);
 
+        /*
         encyclopedia=new ArrayList<>();
         encyclopedia.add(fish1);
         encyclopedia.add(fish2);
@@ -90,10 +144,14 @@ public class EncyclopediaFragment extends Fragment {
         encyclopedia.add(fish9);
         encyclopedia.add(fish10);
 
+        ArrayList<Fish> en2 = new ArrayList<>();
+        for(int i=0 ; i<encyclopedia.size() ; i++){
+            en2.add(encyclopedia.get(i));
+        }
+        Log.i("Encyc", en2.toString());
 
-        RecyclerViewAdapter recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
-        rvFish.setAdapter(recyclerViewAdapter);
-        rvFish.setLayoutManager(new LinearLayoutManager(context));
+ */
+
 
         return view;
     }
