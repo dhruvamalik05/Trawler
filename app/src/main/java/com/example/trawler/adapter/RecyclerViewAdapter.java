@@ -59,7 +59,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else {
             holder.weight.setText("Weight: " + "??" + " kg");
         }
-        GlideApp.with(context).load(fish.getPictureURL()).override(120, 120).error(R.drawable.ic_launcher_foreground).dontAnimate().into(holder.iconButton);
+        GlideApp.with(context).load(fish.getPictureURL()).override(120, 120).error(R.drawable.ic_launcher_foreground).into(holder.iconButton);
         //Picasso.get().load(fish.getPictureURL()).into(holder.iconButton);
         Log.i("Recycler", fish.getPictureURL());
     }
