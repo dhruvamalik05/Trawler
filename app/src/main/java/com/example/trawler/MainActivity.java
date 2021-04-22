@@ -32,19 +32,19 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
+import com.google.android.gms.maps.UiSettings;
+
 public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
     private ViewPager viewPager;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
-
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
@@ -55,10 +55,7 @@ public class MainActivity extends AppCompatActivity {
         listener.onPageSelected(2);
 
         viewPager.addOnPageChangeListener(listener);
-
-
     }
-
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
 
