@@ -25,10 +25,6 @@ import java.util.List;
 import okhttp3.Headers;
 
 public class EncyclopediaFragment extends Fragment {
-    public static EncyclopediaFragment newInstance() {
-        EncyclopediaFragment fragment = new EncyclopediaFragment();
-        return fragment;
-    }
 
     ArrayList<Fish> encyclopedia=new ArrayList<>();
     //ArrayList<Fish> encyclopedia2=new ArrayList<>();

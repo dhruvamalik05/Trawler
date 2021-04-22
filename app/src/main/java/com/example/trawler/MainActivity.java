@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(2);
         listener.onPageSelected(2);
 
-        viewPager.setOnPageChangeListener(listener);
+        viewPager.addOnPageChangeListener(listener);
     }
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
@@ -46,15 +46,15 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) { // Display the proper fragment
             switch(position) {
                 case 0:
-                    return ProfileFragment.newInstance();
+                    return new ProfileFragment();
                 case 1:
-                    return MapFragment.newInstance();
+                    return new MapFragment();
                 case 2:
-                    return CameraFragment.newInstance();
+                    return new CameraFragment();
                 case 3:
-                    return EncyclopediaFragment.newInstance();
+                    return new EncyclopediaFragment();
                 case 4:
-                    return SettingsFragment.newInstance();
+                    return new SettingsFragment();
             }
             return null;
         }
@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager.OnPageChangeListener listener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-            //resetButtons();
 
         }
 
@@ -80,55 +79,54 @@ public class MainActivity extends AppCompatActivity {
             ImageButton btn;
             switch(position) {
                 case 0:
-                    btn = (ImageButton) findViewById(R.id.imageButton0);
+                    btn = findViewById(R.id.imageButton0);
                     btn.setImageResource(R.drawable.profile_selected);
                     viewPager.setCurrentItem(0);
-                    return;
+                    break;
                 case 1:
-                    btn = (ImageButton) findViewById(R.id.imageButton1);
+                    btn = findViewById(R.id.imageButton1);
                     btn.setImageResource(R.drawable.map_selected);
                     viewPager.setCurrentItem(1);
-                    return;
+                    break;
                 case 2:
-                    btn = (ImageButton) findViewById(R.id.imageButton2);
+                    btn = findViewById(R.id.imageButton2);
                     btn.setImageResource(R.drawable.camera_selected);
                     viewPager.setCurrentItem(2);
-                    return;
+                    break;
                 case 3:
-                    btn = (ImageButton) findViewById(R.id.imageButton3);
+                    btn = findViewById(R.id.imageButton3);
                     btn.setImageResource(R.drawable.encyclopedia_selected);
                     viewPager.setCurrentItem(3);
-                    return;
+                    break;
                 case 4:
-                    btn = (ImageButton) findViewById(R.id.imageButton4);
+                    btn = findViewById(R.id.imageButton4);
                     btn.setImageResource(R.drawable.settings_selected);
                     viewPager.setCurrentItem(4);
-                    return;
+                    break;
             }
         }
 
         @Override
         public void onPageScrollStateChanged(int state) {
-            //resetButtons();
         }
     };
 
     public void resetButtons() { //reset all buttons to the non-pressed state
         ImageButton btn;
 
-        btn = (ImageButton)findViewById(R.id.imageButton0);
+        btn = findViewById(R.id.imageButton0);
         btn.setImageResource(R.drawable.profile_unselected);
 
-        btn = (ImageButton)findViewById(R.id.imageButton1);
+        btn = findViewById(R.id.imageButton1);
         btn.setImageResource(R.drawable.map_unselected);
 
-        btn = (ImageButton)findViewById(R.id.imageButton2);
+        btn = findViewById(R.id.imageButton2);
         btn.setImageResource(R.drawable.camera_unselected);
 
-        btn = (ImageButton)findViewById(R.id.imageButton3);
+        btn = findViewById(R.id.imageButton3);
         btn.setImageResource(R.drawable.encyclopedia_unselected);
 
-        btn = (ImageButton)findViewById(R.id.imageButton4);
+        btn = findViewById(R.id.imageButton4);
         btn.setImageResource(R.drawable.settings_unselected);
     }
 

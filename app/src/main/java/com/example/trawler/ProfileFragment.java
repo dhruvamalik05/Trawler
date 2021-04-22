@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 public class ProfileFragment extends Fragment {
-    public static ProfileFragment newInstance() {
-        ProfileFragment fragment = new ProfileFragment();
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
