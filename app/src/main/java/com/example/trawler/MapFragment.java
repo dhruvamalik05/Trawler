@@ -8,10 +8,6 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 
 public class MapFragment extends Fragment {
-    public static MapFragment newInstance() {
-        MapFragment fragment = new MapFragment();
-        return fragment;
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
