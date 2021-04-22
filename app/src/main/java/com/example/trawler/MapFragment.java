@@ -19,6 +19,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -33,6 +34,7 @@ public class MapFragment extends Fragment implements
     private boolean permissionDenied = false;
 
     private GoogleMap mMap;
+    private UiSettings mUiSettings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -43,10 +45,15 @@ public class MapFragment extends Fragment implements
     }
     @Override
     public void onMapReady(GoogleMap googleMap) {
+
         mMap = googleMap;
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
+
+
+        mUiSettings = mMap.getUiSettings();
+        mUiSettings.setMyLocationButtonEnabled(true);
 
         //For testing, add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);

@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.android.gms.maps.UiSettings;
+
 public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
