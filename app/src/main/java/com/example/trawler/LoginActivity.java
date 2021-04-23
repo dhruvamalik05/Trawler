@@ -58,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         });
-        Register_Butt = findViewById(R.id.Regiser_Butt);
+        Register_Butt = findViewById(R.id.Register_Butt);
         Register_Butt.setOnClickListener((v)->{
             startActivity(Reg);
         });

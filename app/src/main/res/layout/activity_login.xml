@@ -10,63 +10,66 @@
         android:id="@+id/Username_Box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="165dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="@string/Username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
     <EditText
         android:id="@+id/Password_Box"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
         android:ems="10"
         android:hint="@string/Pass_Hint"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Username_Box" />
+        app:layout_constraintTop_toBottomOf="@id/Username_Box"
+        app:layout_constraintBottom_toTopOf="@id/Login_Butt"/>
 
     <Button
-        android:id="@+id/Regiser_Butt"
-        android:layout_width="wrap_content"
+        android:id="@+id/Register_Butt"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="36dp"
         android:text="@string/Register"
-        app:layout_constraintStart_toStartOf="@+id/Forgot_Butt"
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Forgot_Butt" />
 
     <Button
         android:id="@+id/Login_Butt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="26dp"
         android:text="@string/Login"
-        app:layout_constraintStart_toStartOf="@+id/Forgot_Butt"
-        app:layout_constraintTop_toBottomOf="@+id/Password_Box" />
+        app:layout_constraintWidth_percent="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Password_Box"
+        app:layout_constraintBottom_toTopOf="@+id/Forgot_Butt"/>
 
     <Button
         android:id="@+id/Forgot_Butt"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="104dp"
         android:text="@string/Forgot"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Login_Butt" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Login_Butt"
+        app:layout_constraintBottom_toTopOf="@id/Register_Butt"/>
 
     <TextView
         android:id="@+id/Welcome_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:text="TextView"
+        android:text="Welcome!"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Username_Box"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
