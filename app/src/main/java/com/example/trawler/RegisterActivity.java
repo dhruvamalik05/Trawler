@@ -56,7 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
                 String fName = ((EditText)findViewById(R.id.FirstName)).getText().toString();
                 String lName = ((EditText)findViewById(R.id.LastName)).getText().toString();
                 String email = ((EditText)findViewById(R.id.email)).getText().toString();
-                if(uName == "" || passName == "" || fName == "" || lName == "" || email == ""){
+                if(uName.isEmpty() || passName.isEmpty() || fName.isEmpty() || lName.isEmpty()|| email.isEmpty()){
                     Toast.makeText(getApplicationContext(), "Please Fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
