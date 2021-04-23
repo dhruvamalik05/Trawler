@@ -51,9 +51,10 @@ public class MapFragment extends Fragment implements
         mMap.setOnMyLocationClickListener(this);
         enableMyLocation();
 
-
         mUiSettings = mMap.getUiSettings();
         mUiSettings.setMyLocationButtonEnabled(true);
+
+        onMyLocationButtonClick();
 
         //For testing, add a marker in Sydney and move the camera
         //LatLng sydney = new LatLng(-34, 151);
@@ -74,13 +75,13 @@ public class MapFragment extends Fragment implements
 
     @Override
     public boolean onMyLocationButtonClick() {
-        Toast.makeText(getActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        Toast.makeText(getActivity(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
+        //Toast.makeText(getActivity(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
