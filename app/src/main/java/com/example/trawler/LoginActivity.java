@@ -2,7 +2,9 @@ package com.example.trawler;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
@@ -28,10 +30,14 @@ public class LoginActivity extends AppCompatActivity {
     Intent i;
     Intent Reg;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.CAMERA}, 0);
         uBox = findViewById(R.id.Username_Box);
         pBox = findViewById(R.id.Password_Box);
         Login_Butt = findViewById(R.id.Login_Butt);
