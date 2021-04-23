@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
     private ViewPager viewPager;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
+
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
@@ -55,7 +58,10 @@ public class MainActivity extends AppCompatActivity {
         listener.onPageSelected(2);
 
         viewPager.addOnPageChangeListener(listener);
+
+
     }
+
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
 
