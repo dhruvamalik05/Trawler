@@ -97,14 +97,17 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String url = fish.getPictureURL();
             String size = fish.getSize1();
             String weight = fish.getWeight1();
-            String description = fish.getBiology();
+            String biology = fish.getBiology();
+            int specCode = fish.getSpecCode();
+
             // Toast.makeText(context, "Item clicked", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, FishDetails.class);
             intent.putExtra("FishName", name);
             intent.putExtra("URL", url);
             intent.putExtra("Size", size);
             intent.putExtra("Weight", weight);
-            intent.putExtra("Description", description);
+            intent.putExtra("Biology", biology);
+            intent.putExtra("Code", specCode);
             context.startActivity(intent);
         }
     }
