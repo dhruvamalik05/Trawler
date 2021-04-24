@@ -54,6 +54,7 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     boolean isLoggedIn = temp.getPass().equals(pBox.getText().toString());
                     if(isLoggedIn){
+                        i.putExtra("User", temp.getuName());
                         startActivity(i);
                     }
                 }

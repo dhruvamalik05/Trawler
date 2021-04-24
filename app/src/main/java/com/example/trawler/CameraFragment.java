@@ -21,6 +21,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.ExecutionException;
@@ -34,7 +35,6 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera , container, false);
-
         previewView = view.findViewById(R.id.previewView);
         cameraProviderFuture = ProcessCameraProvider.getInstance(view.getContext().getApplicationContext());
         cameraProviderFuture.addListener(() -> {
@@ -59,6 +59,8 @@ public class CameraFragment extends Fragment {
                         public void onCaptureSuccess(ImageProxy image) {
                             // insert your code here.
                             Toast.makeText(view.getContext().getApplicationContext(),  "Image Taken", Toast.LENGTH_SHORT).show();
+                            Catch_Metadata c = MainActivity.process(image);
+                            MainActivity.add_data(c);
                         }
                         @Override
                         public void onError(ImageCaptureException error) {
@@ -84,5 +86,6 @@ public class CameraFragment extends Fragment {
 
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this.getContext(), cameraSelector, preview, imageCapture);
     }
+
 }
 
