@@ -76,6 +76,10 @@ public class Fish {
         this.shortDescription = shortDescription;
     }
 
+    public int getSpecCode() {
+        return specCode;
+    }
+
     public String getBiology() {
         return biology;
     }
