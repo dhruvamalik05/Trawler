@@ -16,6 +16,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -53,7 +54,6 @@ public class MainActivity extends AppCompatActivity {
         uName = getIntent().getExtras().get("User").toString();
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
-
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         Catch_Metadata temp = new Catch_Metadata();
         temp.setLocation(new LatLng(-32, 90));
         temp.setuID(uName);
+        temp.setFish_info(new Fish_Data("???????", "Varimeen", 232));
         return temp;
     }
 
