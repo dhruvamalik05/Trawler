@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
+import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
@@ -16,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -24,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.google.android.gms.maps.model.LatLng;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -42,16 +45,19 @@ public class MainActivity extends AppCompatActivity {
 
     FragmentPagerAdapter adapterViewPager;
     private ViewPager viewPager;
+    public static String uName;
+    static FirebaseDatabase database = FirebaseDatabase.getInstance();
+    static DatabaseReference datRef = database.getReference();
+    static DatabaseReference catches = datRef.child("Catches");
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        uName = getIntent().getExtras().get("User").toString();
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
-
 
         adapterViewPager = new MyPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapterViewPager);
@@ -179,5 +185,17 @@ public class MainActivity extends AppCompatActivity {
     }
     public void settingsButton(View view) {
         listener.onPageSelected(4);
+    }
+
+    public static Catch_Metadata process(ImageProxy img){
+        Catch_Metadata temp = new Catch_Metadata();
+        temp.setLocation(new LatLng(-32, 90));
+        temp.setuID(uName);
+        temp.setFish_info(new Fish_Data("???????", "Varimeen", 232));
+        return temp;
+    }
+
+    public static void add_data(Catch_Metadata c){
+        catches.child(uName).push().setValue(c);
     }
 }

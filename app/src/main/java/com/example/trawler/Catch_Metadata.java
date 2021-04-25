@@ -1,21 +1,23 @@
 package com.example.trawler;
 
+import com.google.android.gms.maps.model.LatLng;
+
 public class Catch_Metadata {
     String uID;
-    String Location;
+    LatLng Location;
     String fish_image;
     String time_of_catch;
     Fish_Data fish_info;
 
     public Catch_Metadata(){
         uID = "";
-        Location = "";
+        Location = new LatLng(0,0);
         fish_image = "";
         time_of_catch = "";
         fish_info = new Fish_Data();
     }
 
-    public Catch_Metadata(String uID, String location, String fish_image, String time_of_catch, Fish_Data fish_info) {
+    public Catch_Metadata(String uID, LatLng location, String fish_image, String time_of_catch, Fish_Data fish_info) {
         this.uID = uID;
         Location = location;
         this.fish_image = fish_image;
@@ -31,11 +33,11 @@ public class Catch_Metadata {
         this.uID = uID;
     }
 
-    public String getLocation() {
+    public LatLng getLocation() {
         return Location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(LatLng location) {
         Location = location;
     }
 
