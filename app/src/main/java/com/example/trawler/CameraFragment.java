@@ -43,7 +43,6 @@ public class CameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera , container, false);
         previewView = view.findViewById(R.id.previewView);
-        i = new Intent(this.getContext(), ShowPopUp.class);
         popUp = new PopupWindow(this.getContext());
         cameraProviderFuture = ProcessCameraProvider.getInstance(view.getContext().getApplicationContext());
         cameraProviderFuture.addListener(() -> {
