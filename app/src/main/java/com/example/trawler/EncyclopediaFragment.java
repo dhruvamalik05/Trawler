@@ -4,9 +4,15 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,7 +26,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.Headers;
 
@@ -29,15 +34,21 @@ public class EncyclopediaFragment extends Fragment {
     ArrayList<Fish> encyclopedia=new ArrayList<>();
     //ArrayList<Fish> encyclopedia2=new ArrayList<>();
     Context context;
+    RecyclerView rvFish;
+    RecyclerViewAdapter recyclerViewAdapter;
+    ArrayList<Fish> searchEncyclopedia = new ArrayList<>();
+    ArrayList<Fish> tempEncyclopedia = new ArrayList<>();
     public static final String URL="https://fishbase.ropensci.org/species?limit=100";
-
+    public static final String URL2="https://fishbase.ropensci.org/species?Species=";
+    int count = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_encyclopedia , container, false);
-        RecyclerView rvFish=view.findViewById(R.id.rvFish);
+        rvFish=view.findViewById(R.id.rvFish);
         context=getActivity();
+        setHasOptionsMenu(true);
 
-        RecyclerViewAdapter recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
+        recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
         rvFish.setAdapter(recyclerViewAdapter);
         rvFish.setLayoutManager(new LinearLayoutManager(context));
 
@@ -150,5 +161,78 @@ public class EncyclopediaFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.main_menu, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) item.getActionView();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Toast.makeText(context, query, Toast.LENGTH_LONG).show();
+
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.get(URL2+query, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int i, Headers headers, JSON json) {
+                        Log.i("Encyclopedia2", "onSuccess");
+
+                        JSONObject jsonObject = json.jsonObject;
+                        try {
+                            JSONArray results = jsonObject.getJSONArray("data");
+                            Log.i("Encyclopedia2", "here");
+                    /*
+                    for(int j=0 ; i<results.length() ; j++) {
+                        Fish fish1 = new Fish(results.getJSONObject(j));
+                        encyclopedia.add(fish1);
+                    }
+
+                     */
+                            if(count==0) {
+                                count=1;
+                                Log.i("Encylcopedia2", Integer.toString(count));
+                                tempEncyclopedia.addAll(encyclopedia);
+                            }
+                            searchEncyclopedia.clear();
+                            searchEncyclopedia.addAll(Fish.fromJsonArray(results));
+                            encyclopedia.clear();
+                            encyclopedia.addAll(searchEncyclopedia);
+                            //recyclerViewAdapter= new RecyclerViewAdapter(context, searchEncyclopedia);
+                            recyclerViewAdapter.notifyDataSetChanged();
+                            Log.i("Encyclopedia2", searchEncyclopedia.toString());
+                        } catch (JSONException e) {
+                            Log.e("Encyclopedia2", "Hit JSON exception");
+                            e.printStackTrace();
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                        Log.e("Encyclopedia", "onFailure");
+                    }
+                });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+
+                Log.i("Encyclopedia2", newText);
+                if (count == 1) {
+                    if (searchView.getQuery().length()==0) {
+                        Log.i("Encyclopedia2", "No Text");
+                        encyclopedia.clear();
+                        encyclopedia.addAll(tempEncyclopedia);
+                        recyclerViewAdapter.notifyDataSetChanged();
+                    }
+                }
+                return false;
+            }
+        });
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }

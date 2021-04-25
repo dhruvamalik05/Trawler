@@ -3,6 +3,7 @@ package com.example.trawler;
 import androidx.annotation.NonNull;
 import androidx.annotation.RawRes;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageProxy;
@@ -19,6 +20,9 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -67,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
 
