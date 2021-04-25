@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -34,6 +36,7 @@ import org.json.JSONObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.Headers;
 
@@ -46,7 +49,6 @@ public class EncyclopediaFragment extends Fragment {
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Fish> searchEncyclopedia = new ArrayList<>();
     ArrayList<Fish> tempEncyclopedia = new ArrayList<>();
-    //ArrayList<Integer> specCodes = MainActivity.specCode;
     public static final String URL="https://fishbase.ropensci.org/species?limit=100";
     public static final String URL2="https://fishbase.ropensci.org/species?Species=";
     public static final String URL3="https://fishbase.ropensci.org/species?SpecCode=";
@@ -76,10 +78,10 @@ public class EncyclopediaFragment extends Fragment {
                     public void onSuccess(int i, Headers headers, JSON json) {
                         Log.i("Encyclopedia", "onSuccess");
 
-                        JSONObject jsonObject = json.jsonObject;
-                        try {
-                            JSONArray results = jsonObject.getJSONArray("data");
-                            Log.i("Encyclopedia", "here");
+                JSONObject jsonObject = json.jsonObject;
+                try {
+                    JSONArray results = jsonObject.getJSONArray("data");
+                    Log.i("Encyclopedia", "here");
                     /*
                     for(int j=0 ; i<results.length() ; j++) {
                         Fish fish1 = new Fish(results.getJSONObject(j));
@@ -88,23 +90,22 @@ public class EncyclopediaFragment extends Fragment {
 
                      */
 
-                            encyclopedia.addAll(Fish.fromJsonArray(results));
-                            recyclerViewAdapter.notifyDataSetChanged();
-                            Log.i("Encyclopedia", encyclopedia.toString());
-                        } catch (JSONException e) {
-                            Log.e("Encyclopedia", "Hit JSON exception");
-                            e.printStackTrace();
-                        }
+                    encyclopedia.addAll(Fish.fromJsonArray(results));
+                    recyclerViewAdapter.notifyDataSetChanged();
+                    Log.i("Encyclopedia", encyclopedia.toString());
+                } catch (JSONException e) {
+                    Log.e("Encyclopedia", "Hit JSON exception");
+                    e.printStackTrace();
+                }
 
 
-                    }
-
-                    @Override
-                    public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                        Log.e("Encyclopedia", "onFailure");
-                    }
-                });
             }
+
+            @Override
+            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                Log.e("Encyclopedia", "onFailure");
+            }
+        });
 
 /*
         Fish fish1= new Fish();
