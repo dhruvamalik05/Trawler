@@ -20,11 +20,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.trawler.adapter.RecyclerViewAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 import okhttp3.Headers;
@@ -38,6 +44,7 @@ public class EncyclopediaFragment extends Fragment {
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Fish> searchEncyclopedia = new ArrayList<>();
     ArrayList<Fish> tempEncyclopedia = new ArrayList<>();
+    ArrayList<Long> specCodes = new ArrayList<>();
     public static final String URL="https://fishbase.ropensci.org/species?limit=100";
     public static final String URL2="https://fishbase.ropensci.org/species?Species=";
     int count = 0;
@@ -51,6 +58,24 @@ public class EncyclopediaFragment extends Fragment {
         recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
         rvFish.setAdapter(recyclerViewAdapter);
         rvFish.setLayoutManager(new LinearLayoutManager(context));
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Catches").child(MainActivity.uName);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                specCodes.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    specCodes.add(0, (Long) snapshot1.child("fish_info").child("specCode").getValue(Long.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("Firebase", "error");
+            }
+        });
+
+        Log.i("Firebase", specCodes.toString());
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(URL, new JsonHttpResponseHandler() {
