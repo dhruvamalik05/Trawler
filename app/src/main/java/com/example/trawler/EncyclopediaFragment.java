@@ -59,22 +59,6 @@ public class EncyclopediaFragment extends Fragment {
         rvFish.setAdapter(recyclerViewAdapter);
         rvFish.setLayoutManager(new LinearLayoutManager(context));
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Catches").child(MainActivity.uName);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                specCodes.clear();
-                for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    specCodes.add(0, (Long) snapshot1.child("fish_info").child("specCode").getValue(Long.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("Firebase", "error");
-            }
-        });
-
         Log.i("Firebase", specCodes.toString());
 
         AsyncHttpClient client = new AsyncHttpClient();
@@ -189,7 +173,7 @@ public class EncyclopediaFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
@@ -260,4 +244,25 @@ public class EncyclopediaFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
+/*
+    void firebasefunc(){
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Catches").child(MainActivity.uName);
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                specCodes.clear();
+                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                    specCodes.add((Long) snapshot1.child("fish_info").child("specCode").getValue(Long.class));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.i("Firebase", "error");
+            }
+        });
+
+    }
+
+ */
 }
