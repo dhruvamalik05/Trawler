@@ -38,7 +38,6 @@ public class CameraFragment extends Fragment {
     PreviewView previewView;
     Button take_pic;
     ImageCapture imageCapture;
-    Intent i;
     PopupWindow popUp;
 
     @Override
