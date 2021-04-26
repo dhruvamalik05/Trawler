@@ -55,6 +55,11 @@ public class Fish {
         return size1;
     }
 
+
+    public boolean isCaught() {
+        return caught;
+    }
+
     public String getWeight1() {
         return weight1;
     }

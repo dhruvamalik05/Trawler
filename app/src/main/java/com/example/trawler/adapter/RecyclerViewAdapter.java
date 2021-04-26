@@ -2,6 +2,7 @@ package com.example.trawler.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         else {
             holder.weight.setText("Weight: " + "??" + " kg");
         }
+
+        holder.check.setImageResource(R.drawable.ic_baseline_check_circle_24);
+        if(!fish.isCaught()){
+            holder.check.setImageResource(android.R.color.transparent);
+        }
         GlideApp.with(context).load(fish.getPictureURL()).override(120, 120).error(R.drawable.ic_launcher_foreground).into(holder.iconButton);
         //Picasso.get().load(fish.getPictureURL()).into(holder.iconButton);
         Log.i("Recycler", fish.getPictureURL());
@@ -75,6 +81,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         public TextView size;
         public TextView weight;
         public ImageView iconButton;
+        public ImageView check;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -84,6 +91,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             size = itemView.findViewById(R.id.size);
             weight = itemView.findViewById(R.id.weight);
             iconButton = itemView.findViewById(R.id.imageView);
+            check = itemView.findViewById(R.id.check);
 
             iconButton.setOnClickListener(this);
         }
@@ -99,6 +107,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String weight = fish.getWeight1();
             String biology = fish.getBiology();
             int specCode = fish.getSpecCode();
+            boolean caught = fish.isCaught();
 
             // Toast.makeText(context, "Item clicked", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, FishDetails.class);
@@ -108,6 +117,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             intent.putExtra("Weight", weight);
             intent.putExtra("Biology", biology);
             intent.putExtra("Code", specCode);
+            intent.putExtra("Caught", caught);
             context.startActivity(intent);
         }
     }
