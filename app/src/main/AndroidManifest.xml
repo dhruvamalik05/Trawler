@@ -31,7 +31,6 @@ package="com.example.trawler">
     </activity>
     <activity android:name=".MainActivity" />
     <activity android:name=".FishDetails"/>
-    <activity android:name=".ShowPopUp"/>
 </application>
 
 </manifest>

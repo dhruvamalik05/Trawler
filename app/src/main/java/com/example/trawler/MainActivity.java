@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
@@ -187,11 +190,14 @@ public class MainActivity extends AppCompatActivity {
         listener.onPageSelected(4);
     }
 
+    @SuppressLint("UnsafeOptInUsageError")
     public static Catch_Metadata process(ImageProxy img){
         Catch_Metadata temp = new Catch_Metadata();
         temp.setLocation(new LatLng(-32, 90));
         temp.setuID(uName);
         temp.setFish_info(new Fish_Data("???????", "Varimeen", 232));
+        temp.setTime_of_catch(new SimpleDateFormat("MM/dd/yyyy at hh:mm:ss a").format(new Date()));
+        temp.setFish_image(img.getImage().toString());
         return temp;
     }
 
