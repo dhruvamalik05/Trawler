@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference datRef = database.getReference();
     static DatabaseReference catches = datRef.child("Catches");
+    public static ArrayList<Integer> specCode = new ArrayList<>();
 
 
     @Override
@@ -56,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         uName = getIntent().getExtras().get("User").toString();
+        specCode.addAll(getIntent().getIntegerArrayListExtra("Catches"));
+        Log.i("MainActivityFirebase", specCode.toString());
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
 
