@@ -78,7 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
 
-        private final int NUM_PAGES = 5;
+        //private final int NUM_PAGES = 5;
+        private final int NUM_PAGES = 4;
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -95,8 +96,8 @@ public class MainActivity extends AppCompatActivity {
                     return new CameraFragment();
                 case 3:
                     return new EncyclopediaFragment();
-                case 4:
-                    return new SettingsFragment();
+                //case 4:
+                    //return new SettingsFragment();
             }
             return null;
         }
@@ -144,12 +145,14 @@ public class MainActivity extends AppCompatActivity {
                     btn.setImageResource(R.drawable.encyclopedia_selected);
                     viewPager.setCurrentItem(3);
                     break;
+                /*
                 case 4:
                     btn = findViewById(R.id.imageButton4);
                     getSupportActionBar().setTitle("Settings");
                     btn.setImageResource(R.drawable.settings_selected);
                     viewPager.setCurrentItem(4);
                     break;
+                 */
             }
         }
 
@@ -173,8 +176,11 @@ public class MainActivity extends AppCompatActivity {
         btn = findViewById(R.id.imageButton3);
         btn.setImageResource(R.drawable.encyclopedia_unselected);
 
+        /*
         btn = findViewById(R.id.imageButton4);
         btn.setImageResource(R.drawable.settings_unselected);
+
+         */
     }
 
     //Each of the below will set the button of the selected fragment to be selected and all others
