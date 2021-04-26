@@ -46,7 +46,7 @@ public class EncyclopediaFragment extends Fragment {
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Fish> searchEncyclopedia = new ArrayList<>();
     ArrayList<Fish> tempEncyclopedia = new ArrayList<>();
-    ArrayList<Integer> specCodes = new ArrayList<>();
+    //ArrayList<Integer> specCodes = MainActivity.specCode;
     public static final String URL="https://fishbase.ropensci.org/species?limit=100";
     public static final String URL2="https://fishbase.ropensci.org/species?Species=";
     public static final String URL3="https://fishbase.ropensci.org/species?SpecCode=";
@@ -57,19 +57,19 @@ public class EncyclopediaFragment extends Fragment {
 
         context=getActivity();
         setHasOptionsMenu(true);
-        specCodes.addAll(MainActivity.specCode);
+        rvFish=view.findViewById(R.id.rvFish);
+        recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
+        rvFish.setAdapter(recyclerViewAdapter);
+        rvFish.setLayoutManager(new LinearLayoutManager(context));
+        encyclopedia.clear();
         //((AppCompatActivity) context).getSupportActionBar().setTitle("Fishidex: Your Catches");
         //((MainActivity) getActivity()).setActionBarTitle("Fishidex: Your Catches");
         //getActivity().getActionBar().setTitle("Fishidex: Your Catches");
 
-        Log.i("EncyclopediaFirebase", specCodes.toString());
+        //Log.i("EncyclopediaFirebase", specCodes.toString());
 
-        if(!specCodes.isEmpty()) {
-            rvFish=view.findViewById(R.id.rvFish);
-            recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
-            rvFish.setAdapter(recyclerViewAdapter);
-            rvFish.setLayoutManager(new LinearLayoutManager(context));
-            for (int item1 : specCodes) {
+
+            for (int item1 : MainActivity.specCode) {
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.get(URL3 + item1, new JsonHttpResponseHandler() {
                     @Override
@@ -105,7 +105,6 @@ public class EncyclopediaFragment extends Fragment {
                     }
                 });
             }
-        }
 
 /*
         Fish fish1= new Fish();

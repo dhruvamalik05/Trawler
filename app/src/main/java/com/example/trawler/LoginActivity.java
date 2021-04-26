@@ -64,7 +64,9 @@ public class LoginActivity extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 specCodes.clear();
                                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                                    specCodes.add(0, snapshot1.child("fish_info").child("specCode").getValue(Integer.class));
+                                    if(!specCodes.contains(snapshot1.child("fish_info").child("specCode").getValue(Integer.class))) {
+                                        specCodes.add(0, snapshot1.child("fish_info").child("specCode").getValue(Integer.class));
+                                    }
                                 }
                                 i.putExtra("User", temp.getuName());
                                 i.putIntegerArrayListExtra("Catches", specCodes);
