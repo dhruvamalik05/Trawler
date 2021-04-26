@@ -230,7 +230,8 @@ public class EncyclopediaFragment extends Fragment {
 
                     @Override
                     public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                        Log.e("Encyclopedia", "onFailure");
+                        Log.e("EncyclopediaSearch", "onFailure");
+                        Toast.makeText(context, "Couldn't find fish in database", Toast.LENGTH_LONG).show();
                     }
                 });
                 return false;
