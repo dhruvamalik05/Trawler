@@ -26,6 +26,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -43,6 +44,7 @@ import java.util.ArrayList;
 public class MapFragment extends Fragment implements
         GoogleMap.OnMyLocationButtonClickListener,
         GoogleMap.OnMyLocationClickListener,
+        GoogleMap.OnMarkerClickListener,
         ActivityCompat.OnRequestPermissionsResultCallback,
         OnMapReadyCallback {
 
@@ -61,7 +63,7 @@ public class MapFragment extends Fragment implements
     //TODO species filter
 
     private Button filterButton;
-    private Intent filters;
+    private Intent filters, catchView;
 
     private ArrayList<Catch_Metadata> catches;
 
@@ -89,10 +91,12 @@ public class MapFragment extends Fragment implements
     public void onMapReady(GoogleMap googleMap) {
 
         filters = new Intent(getActivity(), MapFilters.class);
+        catchView = new Intent(getActivity(), CatchDisplayActivity.class);
 
         mMap = googleMap;
         mMap.setOnMyLocationButtonClickListener(this);
         mMap.setOnMyLocationClickListener(this);
+        mMap.setOnMarkerClickListener(this);
         enableMyLocation();
 
         generateCatches();
@@ -108,6 +112,13 @@ public class MapFragment extends Fragment implements
             startActivity(filters);
             drawPins();
         });
+    }
+
+    @Override
+    public boolean onMarkerClick(final Marker marker) {
+        Catch_Metadata catch_data = (Catch_Metadata) marker.getTag();
+        displayCatch(catch_data);
+        return false;
     }
 
     private void getLastLocation() {
@@ -158,7 +169,8 @@ public class MapFragment extends Fragment implements
         mMap.clear();
         for(Catch_Metadata catch_data:catches) {
             if(filterCompatible(catch_data)) {
-                mMap.addMarker(new MarkerOptions().position(catch_data.Location).title(catch_data.uID));
+                Marker mark = mMap.addMarker(new MarkerOptions().position(catch_data.Location));
+                mark.setTag(catch_data);
             }
         }
     }
@@ -240,6 +252,19 @@ public class MapFragment extends Fragment implements
         }
 
     }
+    private void displayCatch(Catch_Metadata c) {
+
+        catchView.putExtra("uID", c.getuID());
+        catchView.putExtra("Location", c.getLocation());
+        catchView.putExtra("fish_image", c.getFish_image());
+        catchView.putExtra("time_of_catch", c.getTime_of_catch());
+        catchView.putExtra("comName", c.getFish_info().getComName());
+        catchView.putExtra("transliteration", c.getFish_info().getTransliteration());
+        catchView.putExtra("specCode", c.getFish_info().getSpecCode());
+
+        startActivity(catchView);
+    }
+
     @Override
     public void onResume() {
         super.onResume();
