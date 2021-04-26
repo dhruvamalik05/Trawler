@@ -65,8 +65,10 @@ public class EncyclopediaFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 specCodes.clear();
                 for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    specCodes.add(0, (Long) snapshot1.child("fish_info").child("specCode").getValue(Long.class));
+                    specCodes.add(snapshot1.child("fish_info").child("specCode").getValue(Long.class));
+                    Log.d("Pog", snapshot1.child("fish_info").child("specCode").getValue(Long.class).toString());
                 }
+                Log.d("Pog", specCodes.toString());
             }
 
             @Override
@@ -92,7 +94,6 @@ public class EncyclopediaFragment extends Fragment {
                         Fish fish1 = new Fish(results.getJSONObject(j));
                         encyclopedia.add(fish1);
                     }
-
                      */
 
                     encyclopedia.addAll(Fish.fromJsonArray(results));
@@ -117,52 +118,42 @@ public class EncyclopediaFragment extends Fragment {
         fish1.setName("Fish1");
         fish1.setSize(8.4);
         fish1.setWeight(124.6);
-
         Fish fish2= new Fish();
         fish2.setName("Fish2");
         fish2.setSize(8.4);
         fish2.setWeight(124.6);
-
         Fish fish3= new Fish();
         fish3.setName("Fish3");
         fish3.setSize(8.4);
         fish3.setWeight(124.6);
-
         Fish fish4= new Fish();
         fish4.setName("Fish4");
         fish4.setSize(8.4);
         fish4.setWeight(124.6);
-
         Fish fish5= new Fish();
         fish5.setName("Fish5");
         fish5.setSize(8.4);
         fish5.setWeight(124.6);
-
         Fish fish6= new Fish();
         fish6.setName("Fish6");
         fish6.setSize(8.4);
         fish6.setWeight(124.6);
-
         Fish fish7= new Fish();
         fish7.setName("Fish7");
         fish7.setSize(8.4);
         fish7.setWeight(124.6);
-
         Fish fish8= new Fish();
         fish8.setName("Fish8");
         fish8.setSize(8.4);
         fish8.setWeight(124.6);
-
         Fish fish9= new Fish();
         fish9.setName("Fish9");
         fish9.setSize(8.4);
         fish9.setWeight(124.6);
-
         Fish fish10= new Fish();
         fish10.setName("Fish10");
         fish10.setSize(8.4);
         fish10.setWeight(124.6);
-
         /*
         encyclopedia=new ArrayList<>();
         encyclopedia.add(fish1);
@@ -175,13 +166,11 @@ public class EncyclopediaFragment extends Fragment {
         encyclopedia.add(fish8);
         encyclopedia.add(fish9);
         encyclopedia.add(fish10);
-
         ArrayList<Fish> en2 = new ArrayList<>();
         for(int i=0 ; i<encyclopedia.size() ; i++){
             en2.add(encyclopedia.get(i));
         }
         Log.i("Encyc", en2.toString());
-
  */
 
 
@@ -213,7 +202,6 @@ public class EncyclopediaFragment extends Fragment {
                         Fish fish1 = new Fish(results.getJSONObject(j));
                         encyclopedia.add(fish1);
                     }
-
                      */
                             if(count==0) {
                                 count=1;
