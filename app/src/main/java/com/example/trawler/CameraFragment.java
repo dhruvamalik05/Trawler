@@ -1,5 +1,6 @@
 package com.example.trawler;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatImageButton;
 import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
@@ -42,6 +44,9 @@ public class CameraFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera , container, false);
+        Context context=getActivity();
+        //((AppCompatActivity) context).getSupportActionBar().setTitle("Trawler");
+        //((MainActivity) getActivity()).setActionBarTitle("Trawler");
         previewView = view.findViewById(R.id.previewView);
         popUp = new PopupWindow(this.getContext());
         cameraProviderFuture = ProcessCameraProvider.getInstance(view.getContext().getApplicationContext());

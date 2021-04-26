@@ -17,6 +17,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -121,26 +122,31 @@ public class MainActivity extends AppCompatActivity {
             switch(position) {
                 case 0:
                     btn = findViewById(R.id.imageButton0);
+                    getSupportActionBar().setTitle("Profile");
                     btn.setImageResource(R.drawable.profile_selected);
                     viewPager.setCurrentItem(0);
                     break;
                 case 1:
                     btn = findViewById(R.id.imageButton1);
+                    getSupportActionBar().setTitle("Map");
                     btn.setImageResource(R.drawable.map_selected);
                     viewPager.setCurrentItem(1);
                     break;
                 case 2:
                     btn = findViewById(R.id.imageButton2);
+                    getSupportActionBar().setTitle("Fish Classification");
                     btn.setImageResource(R.drawable.camera_selected);
                     viewPager.setCurrentItem(2);
                     break;
                 case 3:
                     btn = findViewById(R.id.imageButton3);
+                    getSupportActionBar().setTitle("Fishidex: Your Catches");
                     btn.setImageResource(R.drawable.encyclopedia_selected);
                     viewPager.setCurrentItem(3);
                     break;
                 case 4:
                     btn = findViewById(R.id.imageButton4);
+                    getSupportActionBar().setTitle("Settings");
                     btn.setImageResource(R.drawable.settings_selected);
                     viewPager.setCurrentItem(4);
                     break;
@@ -200,5 +206,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static void add_data(Catch_Metadata c){
         catches.child(uName).push().setValue(c);
+    }
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
     }
 }
