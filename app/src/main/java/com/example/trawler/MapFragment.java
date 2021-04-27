@@ -25,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.UiSettings;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -169,7 +170,7 @@ public class MapFragment extends Fragment implements
         mMap.clear();
         for(Catch_Metadata catch_data:catches) {
             if(filterCompatible(catch_data)) {
-                Marker mark = mMap.addMarker(new MarkerOptions().position(catch_data.Location));
+                Marker mark = mMap.addMarker(new MarkerOptions().position(catch_data.Location).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
                 mark.setTag(catch_data);
             }
         }
