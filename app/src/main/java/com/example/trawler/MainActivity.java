@@ -80,9 +80,9 @@ public class MainActivity extends AppCompatActivity {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference datRef = database.getReference();
     static DatabaseReference catches = datRef.child("Catches");
+    public static ArrayList<Integer> specCode = new ArrayList<>();
     static FirebaseStorage storage = FirebaseStorage.getInstance();
     static StorageReference storRef = storage.getReference();
-    static PopupWindow popUp;
     static long num = 0;
 
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             num = v.getResult().getItems().size();
         });
         uName = getIntent().getExtras().get("User").toString();
-        popUp = new PopupWindow(this);
+        specCode.addAll(getIntent().getIntegerArrayListExtra("Catches"));
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
 
@@ -176,11 +176,6 @@ public class MainActivity extends AppCompatActivity {
                     btn.setImageResource(R.drawable.encyclopedia_selected);
                     viewPager.setCurrentItem(3);
                     break;
-                case 4:
-                    btn = findViewById(R.id.imageButton4);
-                    btn.setImageResource(R.drawable.settings_selected);
-                    viewPager.setCurrentItem(4);
-                    break;
             }
         }
 
@@ -203,9 +198,6 @@ public class MainActivity extends AppCompatActivity {
 
         btn = findViewById(R.id.imageButton3);
         btn.setImageResource(R.drawable.encyclopedia_unselected);
-
-        btn = findViewById(R.id.imageButton4);
-        btn.setImageResource(R.drawable.settings_unselected);
     }
 
     //Each of the below will set the button of the selected fragment to be selected and all others
