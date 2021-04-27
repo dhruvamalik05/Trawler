@@ -24,7 +24,7 @@
         android:elevation="12dp"
         android:id="@+id/fish_image_holder"
         android:layout_margin="20dp"
-        app:cardCornerRadius="50dp"
+        app:cardCornerRadius="30dp"
         android:layout_centerHorizontal="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -33,7 +33,7 @@
             android:src="@drawable/placeholder_fish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
+            android:scaleType="fitCenter"
             android:adjustViewBounds="true"/>
     </androidx.cardview.widget.CardView>
 
