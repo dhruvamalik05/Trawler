@@ -1,96 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark" >
 
-    <EditText
-        android:id="@+id/editTextTextPersonName10"
-        android:layout_width="132dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignEnd="@+id/editTextTextPersonName4"
-        android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="92dp"
-        android:layout_marginEnd="228dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Display_Name" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName8"
-        android:layout_width="136dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignEnd="@+id/editTextTextPersonName4"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="223dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Last_Name" />
-
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="130dp"
-        android:layout_height="144dp"
-        app:srcCompat="@drawable/profile_selected" />
+        android:id="@+id/profile_pic"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_margin="15dp"
+        android:src="@drawable/placeholder_fish"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/editTextTextPersonName4"
+    <TextView
+        android:id="@+id/username_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignEnd="@+id/imageView3"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="0dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="@string/Username" />
+        android:layout_margin="15dp"
+        android:textAlignment="center"
+        android:text="Username"
+        android:textSize="30dp"
+        app:layout_constraintStart_toEndOf="@id/profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextPersonName7"
-        android:layout_width="133dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignEnd="@+id/editTextTextPersonName4"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="45dp"
-        android:layout_marginEnd="226dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="First_Name" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword3"
+    <TextView
+        android:id="@+id/name_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignEnd="@+id/editTextTextPersonName4"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-98dp"
-        android:layout_marginEnd="-1dp"
-        android:ems="10"
-        android:inputType="textPassword"
-        android:text="Password" />
+        android:layout_margin="15dp"
+        android:textAlignment="center"
+        android:text="Actual Name"
+        android:textSize="30dp"
+        app:layout_constraintStart_toEndOf="@id/profile_pic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/username_text" />
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView3"
-        android:layout_alignEnd="@+id/editTextTextPersonName4"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="-53dp"
-        android:layout_marginEnd="-1dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        tools:text="username@email.com" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvProfile"
+        android:layout_width="match_parent"
+        android:layout_margin="15dp"
+        android:layout_height="480dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
