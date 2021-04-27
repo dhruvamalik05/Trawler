@@ -6,12 +6,13 @@
     android:layout_height="300dp"
     android:elevation="12dp"
     android:id="@+id/catch_card"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="40dp"
+    android:layout_margin="5dp"
+    app:cardCornerRadius="30dp"
     android:layout_centerHorizontal="true">
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="fitXY"
+        android:id="@+id/profile_catch_view_img"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
         android:adjustViewBounds="true"/>
 </androidx.cardview.widget.CardView>
