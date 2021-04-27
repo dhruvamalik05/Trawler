@@ -114,16 +114,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/header2"
         app:layout_constraintVertical_bias="0.034" />
-
-    <ImageView
-        android:id="@+id/caught"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="48dp"
-        app:layout_constraintStart_toEndOf="@+id/Details"
-        app:layout_constraintTop_toBottomOf="@+id/weight1"
-        tools:srcCompat="@tools:sample/avatars" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

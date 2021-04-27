@@ -117,6 +117,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             intent.putExtra("Weight", weight);
             intent.putExtra("Biology", biology);
             intent.putExtra("Code", specCode);
+
             intent.putExtra("Caught", caught);
             context.startActivity(intent);
         }
