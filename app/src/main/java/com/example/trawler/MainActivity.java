@@ -8,6 +8,7 @@ import androidx.camera.core.Camera;
 import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
+import androidx.camera.core.internal.utils.ImageUtil;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
@@ -19,22 +20,46 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.graphics.ImageFormat;
+import android.graphics.Rect;
+import android.graphics.YuvImage;
+import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.tasks.Continuation;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
+import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -43,6 +68,9 @@ import java.util.Scanner;
 import java.util.concurrent.ExecutionException;
 
 import com.google.android.gms.maps.UiSettings;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -52,13 +80,22 @@ public class MainActivity extends AppCompatActivity {
     static FirebaseDatabase database = FirebaseDatabase.getInstance();
     static DatabaseReference datRef = database.getReference();
     static DatabaseReference catches = datRef.child("Catches");
+    static FirebaseStorage storage = FirebaseStorage.getInstance();
+    static StorageReference storRef = storage.getReference();
+    static PopupWindow popUp;
+    static long num = 0;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        storRef.child("Images").listAll().addOnCompleteListener((v)->{
+            num = v.getResult().getItems().size();
+        });
         uName = getIntent().getExtras().get("User").toString();
+        popUp = new PopupWindow(this);
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
 
@@ -191,17 +228,55 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("UnsafeOptInUsageError")
-    public static Catch_Metadata process(ImageProxy img){
+    public static void process(ImageProxy img) {
         Catch_Metadata temp = new Catch_Metadata();
         temp.setLocation(new LatLng(-32, 90));
         temp.setuID(uName);
         temp.setFish_info(new Fish_Data("???????", "Varimeen", 232));
-        temp.setTime_of_catch(new SimpleDateFormat("MM/dd/yyyy at hh:mm:ss a").format(new Date()));
-        temp.setFish_image(img.getImage().toString());
-        return temp;
+        temp.setTime_of_catch(new SimpleDateFormat("MM/dd/yyyy 'at' hh:mm:ss a").format(new Date()));
+        Bitmap bitmap = toBitmap(img.getImage());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+        final boolean[] upload = {false};
+        UploadTask uploadTask = storRef.child("Images/"+num+".jpg").putBytes(data);
+        Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
+            @Override
+            public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
+                if (!task.isSuccessful()) {
+                    throw task.getException();
+                }
+                Log.d("Poggers", "Here Baby");
+                // Continue with the task to get the download URL
+                return storRef.child("Images").child(num+++".jpg").getDownloadUrl();
+            }
+        }).addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if (task.isSuccessful()) {
+                    Uri downloadUri = task.getResult();
+                    temp.setFish_image(downloadUri.toString());
+                    Log.d("Poggers", "Here Baby "+downloadUri.toString());
+                    add_data(temp);
+                } else {
+                    // Handle failures
+                    // ...
+                }
+            }
+        });
     }
 
     public static void add_data(Catch_Metadata c){
         catches.child(uName).push().setValue(c);
     }
+
+    private static Bitmap toBitmap(Image image) {
+            ByteBuffer byteBuffer = image.getPlanes()[0].getBuffer();
+            byteBuffer.rewind();
+            byte[] bytes = new byte[byteBuffer.capacity()];
+            byteBuffer.get(bytes);
+            byte[] clonedBytes = bytes.clone();
+            return BitmapFactory.decodeByteArray(clonedBytes, 0, clonedBytes.length);
+    }
+
 }

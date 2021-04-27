@@ -1,12 +1,15 @@
 package com.example.trawler;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
@@ -20,6 +23,7 @@ import androidx.camera.core.ImageCapture;
 import androidx.camera.core.ImageCaptureException;
 import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
+import androidx.camera.core.internal.utils.ImageUtil;
 import androidx.camera.lifecycle.ProcessCameraProvider;
 import androidx.camera.view.PreviewView;
 import androidx.core.content.ContextCompat;
@@ -66,9 +70,8 @@ public class CameraFragment extends Fragment {
                         public void onCaptureSuccess(ImageProxy image) {
                             // insert your code here.
                             Toast.makeText(view.getContext().getApplicationContext(),  "Image Taken", Toast.LENGTH_SHORT).show();
-                            Catch_Metadata c = MainActivity.process(image);
-                            MainActivity.add_data(c);
-                            showPopUp("Congrats! You caught a "+c.getFish_info().getComName() + "!");
+
+                            MainActivity.process(image);
                         }
                         @Override
                         public void onError(ImageCaptureException error) {
@@ -95,21 +98,7 @@ public class CameraFragment extends Fragment {
         Camera camera = cameraProvider.bindToLifecycle((LifecycleOwner)this.getContext(), cameraSelector, preview, imageCapture);
     }
 
-    void showPopUp(String message){
-        LinearLayout layout = new LinearLayout(this.getContext());
-        LinearLayout mainLayout = new LinearLayout(this.getContext());
-        TextView tv = new TextView(this.getContext());
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        tv.setText(message);
-        layout.addView(tv, params);
-        popUp.setContentView(layout);
-        // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
-        popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
-        popUp.update(50, 50, 300, 80);
 
-    }
 
 }
 
