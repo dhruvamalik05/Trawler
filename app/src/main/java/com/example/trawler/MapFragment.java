@@ -83,6 +83,8 @@ public class MapFragment extends Fragment implements
         mapFragment.getMapAsync(this);
         client = LocationServices.getFusedLocationProviderClient(getActivity());
 
+        generateCatches();
+
         getLastLocation();
 
         return view;
@@ -100,7 +102,7 @@ public class MapFragment extends Fragment implements
         mMap.setOnMarkerClickListener(this);
         enableMyLocation();
 
-        generateCatches();
+        //generateCatches();
 
         mUiSettings = mMap.getUiSettings();
         mUiSettings.setMyLocationButtonEnabled(true);
@@ -202,14 +204,13 @@ public class MapFragment extends Fragment implements
                 }
                 drawPins();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.i("Firebase", "error");
             }
         });
 
-
+        Log.i("MAP", "len: " + catches.size());
         //Some test values.
         //Fish_Data fish1 = new Fish_Data("COMNAME", "transliteration", 1);
         //Catch_Metadata catch1 = new Catch_Metadata("UID1", new LatLng(32.7357, -97.1081), "IMG", "TIME", fish1);

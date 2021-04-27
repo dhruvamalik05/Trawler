@@ -100,6 +100,6 @@
     <string name="location_permission_denied">This sample requires location permission to enable the \'my location\' layer. Please try again and grant access to use the location.\nIf the permission has been permanently denied, it can be enabled from the System Settings &gt; Apps &gt; \'Google Maps API Demos\'.</string>
     <string name="permission_required_toast">Location permission is required for this demo.</string>
     <string name="permission_rationale_location">Access to the location service is required to demonstrate the \'my location\' feature, which shows your current location on the map.</string>
-
+    <string name="default_fish_image">https://www.google.com/imgres?imgurl=https%3A%2F%2Fwww.thesprucecrafts.com%2Fthmb%2FFtIBN0rgJ8S3lFbZtvGucMXsYqQ%3D%2F1920x1300%2Ffilters%3Ano_upscale()%3Amax_bytes(150000)%3Astrip_icc()%2Fclipart-3418189_1920-5b1ed1c0ff1b780037b12423.png&amp;imgrefurl=https%3A%2F%2Fwww.thesprucecrafts.com%2Ffree-fish-clip-art-1356296&amp;tbnid=R_zfdRbEHFmTFM&amp;vet=12ahUKEwjD6P_81p3wAhVLXawKHbFMAd8QMygCegUIARDaAQ..i&amp;docid=vYAlMDrq74hM0M&amp;w=1920&amp;h=1300&amp;q=fish%20clipart&amp;ved=2ahUKEwjD6P_81p3wAhVLXawKHbFMAd8QMygCegUIARDaAQ</string>
 
 </resources>
