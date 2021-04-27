@@ -27,9 +27,10 @@
         android:src="@drawable/profile_unselected"
         android:onClick="profileButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imageButton1"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+        app:layout_constraintEnd_toStartOf="@id/imageButton1"/>
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -39,9 +40,10 @@
         android:src="@drawable/map_unselected"
         android:onClick="mapButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintStart_toEndOf="@+id/imageButton0"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/imageButton0"
+        app:layout_constraintEnd_toStartOf="@id/imageButton2"/>
 
     <ImageButton
         android:id="@+id/imageButton2"
@@ -51,9 +53,10 @@
         android:src="@drawable/camera_unselected"
         android:onClick="cameraButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toEndOf="@id/imageButton1"
+        app:layout_constraintEnd_toStartOf="@id/imageButton3"/>
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -63,10 +66,12 @@
         android:src="@drawable/encyclopedia_unselected"
         android:onClick="encyclopediaButton"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/imageButton4"
+        app:layout_constraintTop_toBottomOf="@+id/viewPager"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toEndOf="@id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/viewPager" />
+        app:layout_constraintEnd_toEndOf="parent"/>
 
+    <!--
     <ImageButton
         android:id="@+id/imageButton4"
         android:layout_width="wrap_content"
@@ -78,7 +83,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imageButton3"
         app:layout_constraintTop_toBottomOf="@+id/viewPager" />
-
+    -->
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

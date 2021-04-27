@@ -1,5 +1,6 @@
 package com.example.trawler;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -44,51 +46,38 @@ public class EncyclopediaFragment extends Fragment {
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Fish> searchEncyclopedia = new ArrayList<>();
     ArrayList<Fish> tempEncyclopedia = new ArrayList<>();
-    ArrayList<Long> specCodes = new ArrayList<>();
+    //ArrayList<Integer> specCodes = MainActivity.specCode;
     public static final String URL="https://fishbase.ropensci.org/species?limit=100";
     public static final String URL2="https://fishbase.ropensci.org/species?Species=";
+    public static final String URL3="https://fishbase.ropensci.org/species?SpecCode=";
     int count = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_encyclopedia , container, false);
-        rvFish=view.findViewById(R.id.rvFish);
+
         context=getActivity();
         setHasOptionsMenu(true);
-
+        rvFish=view.findViewById(R.id.rvFish);
         recyclerViewAdapter=new RecyclerViewAdapter(context, encyclopedia);
         rvFish.setAdapter(recyclerViewAdapter);
         rvFish.setLayoutManager(new LinearLayoutManager(context));
+        encyclopedia.clear();
+        //((AppCompatActivity) context).getSupportActionBar().setTitle("Fishidex: Your Catches");
+        //((MainActivity) getActivity()).setActionBarTitle("Fishidex: Your Catches");
+        //getActivity().getActionBar().setTitle("Fishidex: Your Catches");
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Catches").child(MainActivity.uName);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                specCodes.clear();
-                for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    specCodes.add(snapshot1.child("fish_info").child("specCode").getValue(Long.class));
-                    Log.d("Pog", snapshot1.child("fish_info").child("specCode").getValue(Long.class).toString());
-                }
-                Log.d("Pog", specCodes.toString());
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("Firebase", "error");
-            }
-        });
+            for (int item1 : MainActivity.specCode) {
+                AsyncHttpClient client = new AsyncHttpClient();
+                client.get(URL3 + item1, new JsonHttpResponseHandler() {
+                    @Override
+                    public void onSuccess(int i, Headers headers, JSON json) {
+                        Log.i("Encyclopedia", "onSuccess");
 
-        Log.i("Firebase", specCodes.toString());
-
-        AsyncHttpClient client = new AsyncHttpClient();
-        client.get(URL, new JsonHttpResponseHandler() {
-            @Override
-            public void onSuccess(int i, Headers headers, JSON json) {
-                Log.i("Encyclopedia", "onSuccess");
-
-                JSONObject jsonObject = json.jsonObject;
-                try {
-                    JSONArray results = jsonObject.getJSONArray("data");
-                    Log.i("Encyclopedia", "here");
+                        JSONObject jsonObject = json.jsonObject;
+                        try {
+                            JSONArray results = jsonObject.getJSONArray("data");
+                            Log.i("Encyclopedia", "here");
                     /*
                     for(int j=0 ; i<results.length() ; j++) {
                         Fish fish1 = new Fish(results.getJSONObject(j));
@@ -96,22 +85,23 @@ public class EncyclopediaFragment extends Fragment {
                     }
                      */
 
-                    encyclopedia.addAll(Fish.fromJsonArray(results));
-                    recyclerViewAdapter.notifyDataSetChanged();
-                    Log.i("Encyclopedia", encyclopedia.toString());
-                } catch (JSONException e) {
-                    Log.e("Encyclopedia", "Hit JSON exception");
-                    e.printStackTrace();
-                }
+                            encyclopedia.addAll(Fish.fromJsonArray(results));
+                            recyclerViewAdapter.notifyDataSetChanged();
+                            Log.i("Encyclopedia", encyclopedia.toString());
+                        } catch (JSONException e) {
+                            Log.e("Encyclopedia", "Hit JSON exception");
+                            e.printStackTrace();
+                        }
 
 
+                    }
+
+                    @Override
+                    public void onFailure(int i, Headers headers, String s, Throwable throwable) {
+                        Log.e("Encyclopedia", "onFailure");
+                    }
+                });
             }
-
-            @Override
-            public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                Log.e("Encyclopedia", "onFailure");
-            }
-        });
 
 /*
         Fish fish1= new Fish();
@@ -178,14 +168,14 @@ public class EncyclopediaFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.main_menu, menu);
         MenuItem item = menu.findItem(R.id.action_search);
         SearchView searchView = (SearchView) item.getActionView();
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                Toast.makeText(context, query, Toast.LENGTH_LONG).show();
 
                 AsyncHttpClient client = new AsyncHttpClient();
                 client.get(URL2+query, new JsonHttpResponseHandler() {
@@ -202,6 +192,7 @@ public class EncyclopediaFragment extends Fragment {
                         Fish fish1 = new Fish(results.getJSONObject(j));
                         encyclopedia.add(fish1);
                     }
+
                      */
                             if(count==0) {
                                 count=1;
@@ -225,7 +216,8 @@ public class EncyclopediaFragment extends Fragment {
 
                     @Override
                     public void onFailure(int i, Headers headers, String s, Throwable throwable) {
-                        Log.e("Encyclopedia", "onFailure");
+                        Log.e("EncyclopediaSearch", "onFailure");
+                        Toast.makeText(context, "Couldn't find fish in database", Toast.LENGTH_LONG).show();
                     }
                 });
                 return false;
@@ -248,4 +240,5 @@ public class EncyclopediaFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
+
 }

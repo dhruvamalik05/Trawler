@@ -19,6 +19,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.viewpager.widget.ViewPager;
 
 import android.annotation.SuppressLint;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -32,6 +33,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
+
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -82,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
     static DatabaseReference catches = datRef.child("Catches");
     static FirebaseStorage storage = FirebaseStorage.getInstance();
     static StorageReference storRef = storage.getReference();
-    static PopupWindow popUp;
     static long num = 0;
+    public static ArrayList<Integer> specCode = new ArrayList<>();
 
 
 
@@ -95,7 +97,8 @@ public class MainActivity extends AppCompatActivity {
             num = v.getResult().getItems().size();
         });
         uName = getIntent().getExtras().get("User").toString();
-        popUp = new PopupWindow(this);
+        specCode.addAll(getIntent().getIntegerArrayListExtra("Catches"));
+        Log.i("MainActivityFirebase", specCode.toString());
         // Create a viewpager, which holds our fragments in a page layout that can be swiped
         viewPager = findViewById(R.id.viewPager);
 
@@ -114,7 +117,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static class MyPagerAdapter extends FragmentPagerAdapter {
 
-        private final int NUM_PAGES = 5;
+        //private final int NUM_PAGES = 5;
+        private final int NUM_PAGES = 4;
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -131,8 +135,8 @@ public class MainActivity extends AppCompatActivity {
                     return new CameraFragment();
                 case 3:
                     return new EncyclopediaFragment();
-                case 4:
-                    return new SettingsFragment();
+                //case 4:
+                    //return new SettingsFragment();
             }
             return null;
         }
@@ -158,29 +162,36 @@ public class MainActivity extends AppCompatActivity {
             switch(position) {
                 case 0:
                     btn = findViewById(R.id.imageButton0);
+                    getSupportActionBar().setTitle("Profile");
                     btn.setImageResource(R.drawable.profile_selected);
                     viewPager.setCurrentItem(0);
                     break;
                 case 1:
                     btn = findViewById(R.id.imageButton1);
+                    getSupportActionBar().setTitle("Map");
                     btn.setImageResource(R.drawable.map_selected);
                     viewPager.setCurrentItem(1);
                     break;
                 case 2:
                     btn = findViewById(R.id.imageButton2);
+                    getSupportActionBar().setTitle("Fish Classification");
                     btn.setImageResource(R.drawable.camera_selected);
                     viewPager.setCurrentItem(2);
                     break;
                 case 3:
                     btn = findViewById(R.id.imageButton3);
+                    getSupportActionBar().setTitle("Fishidex: Your Catches");
                     btn.setImageResource(R.drawable.encyclopedia_selected);
                     viewPager.setCurrentItem(3);
                     break;
+                /*
                 case 4:
                     btn = findViewById(R.id.imageButton4);
+                    getSupportActionBar().setTitle("Settings");
                     btn.setImageResource(R.drawable.settings_selected);
                     viewPager.setCurrentItem(4);
                     break;
+                 */
             }
         }
 
@@ -204,8 +215,11 @@ public class MainActivity extends AppCompatActivity {
         btn = findViewById(R.id.imageButton3);
         btn.setImageResource(R.drawable.encyclopedia_unselected);
 
+        /*
         btn = findViewById(R.id.imageButton4);
         btn.setImageResource(R.drawable.settings_unselected);
+
+         */
     }
 
     //Each of the below will set the button of the selected fragment to be selected and all others
@@ -279,4 +293,7 @@ public class MainActivity extends AppCompatActivity {
             return BitmapFactory.decodeByteArray(clonedBytes, 0, clonedBytes.length);
     }
 
+    public void setActionBarTitle(String title) {
+        getSupportActionBar().setTitle(title);
+    }
 }

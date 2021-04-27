@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -17,6 +18,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+
+import java.util.ArrayList;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -29,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     DatabaseReference users = datRef.child("users");
     Intent i;
     Intent Reg;
+    ArrayList<Integer> specCodes= new ArrayList<>();
 
 
 
@@ -54,8 +58,29 @@ public class LoginActivity extends AppCompatActivity {
                     }
                     boolean isLoggedIn = temp.getPass().equals(pBox.getText().toString());
                     if(isLoggedIn){
-                        i.putExtra("User", temp.getuName());
-                        startActivity(i);
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Catches").child(temp.getuName());
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                specCodes.clear();
+                                for(DataSnapshot snapshot1 : snapshot.getChildren()){
+                                    if(!specCodes.contains(snapshot1.child("fish_info").child("specCode").getValue(Integer.class))) {
+                                        specCodes.add(0, snapshot1.child("fish_info").child("specCode").getValue(Integer.class));
+                                    }
+                                }
+                                i.putExtra("User", temp.getuName());
+                                i.putIntegerArrayListExtra("Catches", specCodes);
+                                startActivity(i);
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                                Log.i("Firebase", "error");
+                            }
+                        });
+                        //i.putExtra("User", temp.getuName());
+                        //i.putIntegerArrayListExtra("Catches", specCodes);
+                        //startActivity(i);
                     }
                 }
 

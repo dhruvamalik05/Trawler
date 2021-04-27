@@ -34,8 +34,10 @@ public class FishDetails extends AppCompatActivity {
         String weight1=intent.getStringExtra("Weight");
         String biology1=intent.getStringExtra("Biology");
         int specCode=intent.getIntExtra("Code", -1);
+        boolean caught=intent.getBooleanExtra("Caught", false);
 
         ImageView img1 = findViewById(R.id.img1);
+        ImageView check = findViewById(R.id.caught);
         TextView fishName = findViewById(R.id.fishName);
         TextView size = findViewById(R.id.size1);
         TextView weight = findViewById(R.id.weight1);
@@ -43,6 +45,11 @@ public class FishDetails extends AppCompatActivity {
         TextView description = findViewById(R.id.Description);
         TextView header2 = findViewById(R.id.header2);
         TextView biology = findViewById(R.id.Biology);
+
+        check.setImageResource(R.drawable.ic_baseline_check_circle_24);
+        if(!caught){
+            check.setImageResource(android.R.color.transparent);
+        }
 
         fishName.setText(name);
         if(biology1.equals("null")){

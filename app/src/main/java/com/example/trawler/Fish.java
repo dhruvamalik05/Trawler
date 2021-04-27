@@ -1,5 +1,7 @@
 package com.example.trawler;
 
+import android.util.Log;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -18,6 +20,7 @@ public class Fish {
     String pictureURL;
     String size1;
     String weight1;
+    boolean caught;
 
 
 
@@ -26,6 +29,13 @@ public class Fish {
     public Fish(JSONObject jsonObject) throws JSONException {
         name=jsonObject.getString("Species");
         specCode=jsonObject.getInt("SpecCode");
+        if(MainActivity.specCode.contains(specCode)){
+            caught=true;
+        }
+        else{
+            caught=false;
+        }
+        Log.i("Fish", ""+caught);
         //pictureURL="https://www.fishbase.se/images/species/"+jsonObject.getString("PicPreferredName");
         pictureURL=jsonObject.getString("PicPreferredName");
         size1=Double.toString(jsonObject.optDouble("Length"));
@@ -43,6 +53,11 @@ public class Fish {
 
     public String getSize1() {
         return size1;
+    }
+
+
+    public boolean isCaught() {
+        return caught;
     }
 
     public String getWeight1() {

@@ -21,16 +21,20 @@ package="com.example.trawler">
     <activity
         android:name=".RegisterActivity"
         android:label="@string/title_activity_register"
-        android:theme="@style/Theme.Trawler.NoActionBar"/>
-    <activity android:name=".LoginActivity">
+        android:theme="@style/Theme.AppCompat.NoActionBar"/>
+    <activity android:name=".LoginActivity"
+        android:theme="@style/Theme.AppCompat">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
 
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-    <activity android:name=".MainActivity" />
+    <activity android:name=".MainActivity"/>
     <activity android:name=".FishDetails"/>
+    <!--<activity android:name=".ShowPopUp"/> -->
+    <activity android:name=".MapFilters"/>
+    <activity android:name=".CatchDisplayActivity"/>
 </application>
 
 </manifest>
