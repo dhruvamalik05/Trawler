@@ -14,7 +14,7 @@
         android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fish_img"
+        app:layout_constraintTop_toBottomOf="@id/fish_image_holder"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
     <androidx.cardview.widget.CardView
@@ -22,17 +22,18 @@
         android:layout_height="0dp"
         app:layout_constraintDimensionRatio="1:1"
         android:elevation="12dp"
-        android:id="@+id/fish_img"
+        android:id="@+id/fish_image_holder"
         android:layout_margin="20dp"
-        app:cardCornerRadius="75dp"
+        app:cardCornerRadius="50dp"
         android:layout_centerHorizontal="true"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
+            android:id="@+id/fish_image"
             android:src="@drawable/placeholder_fish"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             android:adjustViewBounds="true"/>
     </androidx.cardview.widget.CardView>
 

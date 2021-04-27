@@ -145,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
                     btn.setImageResource(R.drawable.encyclopedia_selected);
                     viewPager.setCurrentItem(3);
                     break;
+                    //TODO Implement settings
                 /*
                 case 4:
                     btn = findViewById(R.id.imageButton4);
@@ -204,9 +205,12 @@ public class MainActivity extends AppCompatActivity {
 
     public static Catch_Metadata process(ImageProxy img){
         Catch_Metadata temp = new Catch_Metadata();
-        temp.setLocation(new LatLng(-32, 90));
+        temp.setLocation(MapFragment.getLocation());
         temp.setuID(uName);
-        temp.setFish_info(new Fish_Data("???????", "Varimeen", 232));
+        //TODO Update process function
+        //By not providing the image, we set the image to the striped bass default image
+        //For demo purposes, this is hardcoded
+        temp.setFish_info(new Fish_Data("???????", "Striped Bass", 232));
         return temp;
     }
 

@@ -74,6 +74,7 @@ public class MapFragment extends Fragment implements
     FusedLocationProviderClient client;
 
     Location userLocation;
+    static LatLng locationRet = new LatLng(0, 0);
 
 
     @Override
@@ -124,6 +125,10 @@ public class MapFragment extends Fragment implements
         return false;
     }
 
+    public static LatLng getLocation() {
+        return locationRet;
+    }
+
     private void getLastLocation() {
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
@@ -135,6 +140,8 @@ public class MapFragment extends Fragment implements
             public void onSuccess(Location location) {
                 if(location != null) {
                     userLocation = location;
+                    locationRet = new LatLng(userLocation.getLatitude(), userLocation.getLongitude());
+
                     drawPins();
                 }
             }
@@ -199,7 +206,6 @@ public class MapFragment extends Fragment implements
                         //LatLng sydney = new LatLng(-33.8688, 151.2093);
                         //Fish_Data fish1 = new Fish_Data("COMNAME", "transliteration", 1);
                         catches.add(new Catch_Metadata(uID, loc, fishIMG, time, fish));
-
                     }
                 }
                 drawPins();

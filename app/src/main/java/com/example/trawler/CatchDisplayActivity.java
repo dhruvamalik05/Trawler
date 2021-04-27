@@ -40,5 +40,8 @@ public class CatchDisplayActivity extends AppCompatActivity {
 
         txt = findViewById(R.id.catch_display_txt);
         txt.setText(displayMessage);
+
+        img = findViewById(R.id.fish_image);
+        GlideApp.with(this).load(fish_image).error(R.drawable.placeholder_fish).into(img);
     }
 }
