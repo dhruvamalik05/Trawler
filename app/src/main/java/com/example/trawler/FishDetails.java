@@ -107,11 +107,6 @@ public class FishDetails extends AppCompatActivity {
             }
         });
 
-
-
-
-        //img1.setImageResource(R.drawable.ic_launcher_foreground);
-        //GlideApp.with(this).load(url).override(120, 120).error(R.drawable.ic_launcher_foreground).dontAnimate().into(img1);
         Picasso.get().load(url).error(R.drawable.ic_launcher_foreground).into(img1);
         Log.i("FishDetails", url);
     }

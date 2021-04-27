@@ -40,13 +40,11 @@ import okhttp3.Headers;
 public class EncyclopediaFragment extends Fragment {
 
     ArrayList<Fish> encyclopedia=new ArrayList<>();
-    //ArrayList<Fish> encyclopedia2=new ArrayList<>();
     Context context;
     RecyclerView rvFish;
     RecyclerViewAdapter recyclerViewAdapter;
     ArrayList<Fish> searchEncyclopedia = new ArrayList<>();
     ArrayList<Fish> tempEncyclopedia = new ArrayList<>();
-    //ArrayList<Integer> specCodes = MainActivity.specCode;
     public static final String URL="https://fishbase.ropensci.org/species?limit=100";
     public static final String URL2="https://fishbase.ropensci.org/species?Species=";
     public static final String URL3="https://fishbase.ropensci.org/species?SpecCode=";
@@ -62,11 +60,7 @@ public class EncyclopediaFragment extends Fragment {
         rvFish.setAdapter(recyclerViewAdapter);
         rvFish.setLayoutManager(new LinearLayoutManager(context));
         encyclopedia.clear();
-        //((AppCompatActivity) context).getSupportActionBar().setTitle("Fishidex: Your Catches");
-        //((MainActivity) getActivity()).setActionBarTitle("Fishidex: Your Catches");
-        //getActivity().getActionBar().setTitle("Fishidex: Your Catches");
 
-        //Log.i("EncyclopediaFirebase", specCodes.toString());
 
 
             for (int item1 : MainActivity.specCode) {
@@ -80,13 +74,6 @@ public class EncyclopediaFragment extends Fragment {
                         try {
                             JSONArray results = jsonObject.getJSONArray("data");
                             Log.i("Encyclopedia", "here");
-                    /*
-                    for(int j=0 ; i<results.length() ; j++) {
-                        Fish fish1 = new Fish(results.getJSONObject(j));
-                        encyclopedia.add(fish1);
-                    }
-
-                     */
 
                             encyclopedia.addAll(Fish.fromJsonArray(results));
                             recyclerViewAdapter.notifyDataSetChanged();
@@ -105,79 +92,6 @@ public class EncyclopediaFragment extends Fragment {
                     }
                 });
             }
-
-/*
-        Fish fish1= new Fish();
-        fish1.setName("Fish1");
-        fish1.setSize(8.4);
-        fish1.setWeight(124.6);
-
-        Fish fish2= new Fish();
-        fish2.setName("Fish2");
-        fish2.setSize(8.4);
-        fish2.setWeight(124.6);
-
-        Fish fish3= new Fish();
-        fish3.setName("Fish3");
-        fish3.setSize(8.4);
-        fish3.setWeight(124.6);
-
-        Fish fish4= new Fish();
-        fish4.setName("Fish4");
-        fish4.setSize(8.4);
-        fish4.setWeight(124.6);
-
-        Fish fish5= new Fish();
-        fish5.setName("Fish5");
-        fish5.setSize(8.4);
-        fish5.setWeight(124.6);
-
-        Fish fish6= new Fish();
-        fish6.setName("Fish6");
-        fish6.setSize(8.4);
-        fish6.setWeight(124.6);
-
-        Fish fish7= new Fish();
-        fish7.setName("Fish7");
-        fish7.setSize(8.4);
-        fish7.setWeight(124.6);
-
-        Fish fish8= new Fish();
-        fish8.setName("Fish8");
-        fish8.setSize(8.4);
-        fish8.setWeight(124.6);
-
-        Fish fish9= new Fish();
-        fish9.setName("Fish9");
-        fish9.setSize(8.4);
-        fish9.setWeight(124.6);
-
-        Fish fish10= new Fish();
-        fish10.setName("Fish10");
-        fish10.setSize(8.4);
-        fish10.setWeight(124.6);
-
-        /*
-        encyclopedia=new ArrayList<>();
-        encyclopedia.add(fish1);
-        encyclopedia.add(fish2);
-        encyclopedia.add(fish3);
-        encyclopedia.add(fish4);
-        encyclopedia.add(fish5);
-        encyclopedia.add(fish6);
-        encyclopedia.add(fish7);
-        encyclopedia.add(fish8);
-        encyclopedia.add(fish9);
-        encyclopedia.add(fish10);
-
-        ArrayList<Fish> en2 = new ArrayList<>();
-        for(int i=0 ; i<encyclopedia.size() ; i++){
-            en2.add(encyclopedia.get(i));
-        }
-        Log.i("Encyc", en2.toString());
-
- */
-
 
         return view;
     }
@@ -201,13 +115,7 @@ public class EncyclopediaFragment extends Fragment {
                         try {
                             JSONArray results = jsonObject.getJSONArray("data");
                             Log.i("Encyclopedia2", "here");
-                    /*
-                    for(int j=0 ; i<results.length() ; j++) {
-                        Fish fish1 = new Fish(results.getJSONObject(j));
-                        encyclopedia.add(fish1);
-                    }
 
-                     */
                             if(count==0) {
                                 count=1;
                                 Log.i("Encylcopedia2", Integer.toString(count));
@@ -217,7 +125,6 @@ public class EncyclopediaFragment extends Fragment {
                             searchEncyclopedia.addAll(Fish.fromJsonArray(results));
                             encyclopedia.clear();
                             encyclopedia.addAll(searchEncyclopedia);
-                            //recyclerViewAdapter= new RecyclerViewAdapter(context, searchEncyclopedia);
                             recyclerViewAdapter.notifyDataSetChanged();
                             Log.i("Encyclopedia2", searchEncyclopedia.toString());
                         } catch (JSONException e) {
@@ -254,28 +161,6 @@ public class EncyclopediaFragment extends Fragment {
         });
         super.onCreateOptionsMenu(menu, inflater);
     }
-
-/*
-    void firebasefunc(){
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Catches").child(MainActivity.uName);
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                specCodes.clear();
-                for(DataSnapshot snapshot1 : snapshot.getChildren()){
-                    specCodes.add((Long) snapshot1.child("fish_info").child("specCode").getValue(Long.class));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.i("Firebase", "error");
-            }
-        });
-
-    }
-
- */
 
 
 }

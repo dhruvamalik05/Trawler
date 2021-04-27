@@ -47,10 +47,7 @@ public class ProfileFragment extends Fragment {
         Catch_Metadata catch2 = new Catch_Metadata("Foobar", new LatLng(0, 0), getString(R.string.default_fish_image), "4/27/21 at 12:26:00 pm", fish1);
         Catch_Metadata catch3 = new Catch_Metadata("Foobar", new LatLng(0, 0), getString(R.string.default_fish_image), "4/27/21 at 12:26:00 pm", fish1);
 
-        //userCatches = new ArrayList<Catch_Metadata>();
-        //userCatches.add(catch1);
-        //userCatches.add(catch2);
-        //userCatches.add(catch3);
+
 
         generateCatches();
 
@@ -77,8 +74,7 @@ public class ProfileFragment extends Fragment {
                             String time = (String) s2.child("time_of_catch").getValue(String.class);
 
                             Fish_Data fish = (Fish_Data) s2.child("fish_info").getValue(Fish_Data.class);
-                            //LatLng sydney = new LatLng(-33.8688, 151.2093);
-                            //Fish_Data fish1 = new Fish_Data("COMNAME", "transliteration", 1);
+
                             userCatches.add(new Catch_Metadata(uID, loc, fishIMG, time, fish));
                         }
                     }
@@ -99,6 +95,7 @@ public class ProfileFragment extends Fragment {
 
         //catches.add(catch1);
         //catches.add(catch2);
+        //leaving this for testing
     }
     private void updateRecycler() {
         Log.i("PROFILE", "len: " + userCatches.size());

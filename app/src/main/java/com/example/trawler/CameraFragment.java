@@ -45,8 +45,6 @@ public class CameraFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_camera , container, false);
         Context context=getActivity();
-        //((AppCompatActivity) context).getSupportActionBar().setTitle("Trawler");
-        //((MainActivity) getActivity()).setActionBarTitle("Trawler");
         previewView = view.findViewById(R.id.previewView);
         popUp = new PopupWindow(this.getContext());
         cameraProviderFuture = ProcessCameraProvider.getInstance(view.getContext().getApplicationContext());
@@ -56,8 +54,6 @@ public class CameraFragment extends Fragment {
                 cameraProvider.unbindAll();
                 bindPreview(cameraProvider);
             } catch (ExecutionException | InterruptedException e) {
-                // No errors need to be handled for this Future.
-                // This should never be reached.
             }
         }, ContextCompat.getMainExecutor(view.getContext().getApplicationContext()));
         imageCapture =
@@ -111,7 +107,6 @@ public class CameraFragment extends Fragment {
         tv.setText(message);
         layout.addView(tv, params);
         popUp.setContentView(layout);
-        // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
         popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
         popUp.update(50, 50, 300, 80);
 

@@ -46,7 +46,6 @@ public class MapFilters extends AppCompatActivity {
     }
     public void favoriteCheck(View view) {
         favoritedOnly = ((CheckBox)view).isChecked();
-        //MapFragment.setFavoritedOnly(favoritedOnly);
     }
     public void nycCheck(View view) {
         notYetCaught = ((CheckBox)view).isChecked();

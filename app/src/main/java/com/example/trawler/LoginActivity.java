@@ -78,9 +78,7 @@ public class LoginActivity extends AppCompatActivity {
                                 Log.i("Firebase", "error");
                             }
                         });
-                        //i.putExtra("User", temp.getuName());
-                        //i.putIntegerArrayListExtra("Catches", specCodes);
-                        //startActivity(i);
+
                     }
                 }
 

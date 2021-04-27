@@ -66,7 +66,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             holder.check.setImageResource(android.R.color.transparent);
         }
         GlideApp.with(context).load(fish.getPictureURL()).override(120, 120).error(R.drawable.ic_launcher_foreground).into(holder.iconButton);
-        //Picasso.get().load(fish.getPictureURL()).into(holder.iconButton);
         Log.i("Recycler", fish.getPictureURL());
     }
 
@@ -109,7 +108,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             int specCode = fish.getSpecCode();
             boolean caught = fish.isCaught();
 
-            // Toast.makeText(context, "Item clicked", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(context, FishDetails.class);
             intent.putExtra("FishName", name);
             intent.putExtra("URL", url);

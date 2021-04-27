@@ -203,8 +203,6 @@ public class MapFragment extends Fragment implements
                         String time = (String) s2.child("time_of_catch").getValue(String.class);
 
                         Fish_Data fish = (Fish_Data) s2.child("fish_info").getValue(Fish_Data.class);
-                        //LatLng sydney = new LatLng(-33.8688, 151.2093);
-                        //Fish_Data fish1 = new Fish_Data("COMNAME", "transliteration", 1);
                         catches.add(new Catch_Metadata(uID, loc, fishIMG, time, fish));
                     }
                 }
@@ -224,6 +222,7 @@ public class MapFragment extends Fragment implements
 
         //catches.add(catch1);
         //catches.add(catch2);
+        //leaving this for furutre testing
     }
 
     private void enableMyLocation() {
@@ -239,13 +238,11 @@ public class MapFragment extends Fragment implements
 
     @Override
     public boolean onMyLocationButtonClick() {
-        //Toast.makeText(getActivity(), "MyLocation button clicked", Toast.LENGTH_SHORT).show();
         return false;
     }
 
     @Override
     public void onMyLocationClick(@NonNull Location location) {
-        //Toast.makeText(getActivity(), "Current location:\n" + location, Toast.LENGTH_LONG).show();
     }
 
     @Override
