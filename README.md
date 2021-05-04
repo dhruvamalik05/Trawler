@@ -1,5 +1,3 @@
 # Trawler
 
-TODO: Update README :)
-
-New update to Readme by Rithik
+<img src="https://github.com/jleeelle/Trawler/blob/main/demo2.gif">
