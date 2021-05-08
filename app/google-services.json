@@ -1,13 +1,14 @@
 {
   "project_info": {
     "project_number": "736544400701",
+    "firebase_url": "https://trawlr-c4b0e-default-rtdb.firebaseio.com",
     "project_id": "trawlr-c4b0e",
     "storage_bucket": "trawlr-c4b0e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:736544400701:android:550150e2125aa67af89154",
+        "mobilesdk_app_id": "1:736544400701:android:382edd6d35ea6114f89154",
         "android_client_info": {
           "package_name": "com.example.trawler"
         }

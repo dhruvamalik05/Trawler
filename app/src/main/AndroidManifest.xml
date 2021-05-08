@@ -16,7 +16,7 @@ package="com.example.trawler">
 
     <meta-data
         android:name="com.google.android.geo.API_KEY"
-        android:value="AIzaSyDEA3UcwFrCqs-5xobqwYrM-mf64Zkp7yI" />
+        android:value="AIzaSyC2Q-F4Opgx5jUTo-CuVKSmcNxqdVN-1mY" />
 
     <activity
         android:name=".RegisterActivity"
